@@ -32,16 +32,25 @@ class HomeView extends StackedView<HomeViewModel> {
                     Padding(
                         padding: EdgeInsets.only(left: 8),
                         child: Icon(Icons.search)),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Padding(
                             padding: EdgeInsets.only(right: 8),
-                            child: Icon(Icons.favorite_border_outlined)),
+                            child: Icon(
+                              Icons.favorite_border_outlined,
+                            )),
                         horizontalSpaceSmall,
                         Padding(
                             padding: EdgeInsets.only(right: 8),
-                            child: Icon(Icons.shopping_bag_outlined))
+                            child: InkWell(
+                                onTap: () {
+                                  //viewModel.signInAnonymously();
+                                },
+                                child: Icon(
+                                  Icons.shopping_bag_outlined,
+                                  color: Colors.amber,
+                                )))
                       ],
                     ),
                   ],
@@ -62,6 +71,44 @@ class HomeView extends StackedView<HomeViewModel> {
       HomeViewModel();
 }
 
+Widget DrawerWidget() {
+  return Drawer(
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: <Widget>[
+        const DrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.blue,
+          ),
+          child: Text(
+            'Drawer Header',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.message),
+          title: const Text('Messages'),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: const Icon(Icons.account_circle),
+          title: const Text('Profile'),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: const Icon(Icons.settings),
+          title: const Text('Settings'),
+          onTap: () {},
+        ),
+      ],
+    ),
+  );
+}
+
+// ignore: non_constant_identifier_names
 Widget ProductsListWidget() {
   return Expanded(
     child: Container(
@@ -95,11 +142,15 @@ Widget ProductsListWidget() {
                                 "https://hornblower-businesses.co.uk/wp-content/uploads/2020/02/electrical-equipment-manufacturer_1000X750.jpg"),
                           ),
                           IconButton(
-                              onPressed: () {}, icon: Icon(Icons.favorite)),
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              )),
                         ],
                       )),
                       verticalSpaceTiny,
-                      Padding(
+                      const Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
                           "Product Name",
@@ -107,7 +158,7 @@ Widget ProductsListWidget() {
                         ),
                       ),
                       verticalSpaceTiny,
-                      Padding(
+                      const Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
                           "Price 12£",
