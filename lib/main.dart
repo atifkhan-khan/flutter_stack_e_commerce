@@ -7,8 +7,8 @@ import 'package:flutter_stack_e_comerce/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  //WidgetsFlutterBinding.ensureInitialized();
+  // Firebase.initializeApp();
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
@@ -21,6 +21,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,

@@ -14,47 +14,62 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      key: viewModel.key,
+      drawer: DrawerWidget(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Center(
               child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               verticalSpaceMedium,
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(22)),
-                height: 35,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.only(left: 8),
-                        child: Icon(Icons.search)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        viewModel.key.currentState!.openDrawer();
+                      },
+                      icon: const Icon(
+                        Icons.menu,
+                      )),
+                  Container(
+                    width: screenWidth(context) / 1.5,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(22)),
+                    height: 35,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                            padding: EdgeInsets.only(right: 8),
-                            child: Icon(
-                              Icons.favorite_border_outlined,
-                            )),
-                        horizontalSpaceSmall,
-                        Padding(
-                            padding: EdgeInsets.only(right: 8),
-                            child: InkWell(
-                                onTap: () {
-                                  //viewModel.signInAnonymously();
-                                },
+                            padding: EdgeInsets.only(left: 8),
+                            child: Icon(Icons.search)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(right: 8),
                                 child: Icon(
-                                  Icons.shopping_bag_outlined,
-                                  color: Colors.amber,
-                                )))
+                                  Icons.favorite_border_outlined,
+                                )),
+                            horizontalSpaceSmall,
+                            Padding(
+                                padding: EdgeInsets.only(right: 8),
+                                child: InkWell(
+                                    onTap: () {
+                                      viewModel.navToUIScreen();
+                                    },
+                                    child: Icon(
+                                      Icons.shopping_bag_outlined,
+                                      color: Colors.amber,
+                                    )))
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               ProductsListWidget()
             ],

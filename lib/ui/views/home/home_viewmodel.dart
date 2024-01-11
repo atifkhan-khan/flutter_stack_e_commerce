@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_stack_e_comerce/app/app.bottomsheets.dart';
 import 'package:flutter_stack_e_comerce/app/app.dialogs.dart';
 import 'package:flutter_stack_e_comerce/app/app.locator.dart';
-import 'package:flutter_stack_e_comerce/services/firebase_services_service.dart';
+import 'package:flutter_stack_e_comerce/app/app.router.dart';
 import 'package:flutter_stack_e_comerce/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -9,7 +11,11 @@ import 'package:stacked_services/stacked_services.dart';
 class HomeViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
-  final _firebaseAuth = locator<FirebaseServicesService>();
+  final _naviServices = locator<NavigationService>();
+
+  // final _firebaseAuth = locator<FirebaseServicesService>();
+
+  GlobalKey<ScaffoldState> key = GlobalKey();
 
   String get counterLabel => 'Counter is: $_counter';
 
@@ -44,5 +50,9 @@ class HomeViewModel extends BaseViewModel {
       title: ksHomeBottomSheetTitle,
       description: ksHomeBottomSheetDescription,
     );
+  }
+
+  void navToUIScreen() {
+    _naviServices.navigateToUIDesignView();
   }
 }
