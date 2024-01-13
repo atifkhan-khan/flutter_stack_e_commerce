@@ -6,6 +6,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:flutter_stack_e_comerce/services/firebase_services_service.dart';
 import 'package:flutter_stack_e_comerce/ui/views/u_i_design/u_i_design_view.dart';
+import 'package:flutter_stack_e_comerce/ui/views/product_details/product_details_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -13,6 +14,7 @@ import 'package:flutter_stack_e_comerce/ui/views/u_i_design/u_i_design_view.dart
     MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
     MaterialRoute(page: UIDesignView),
+    MaterialRoute(page: ProductDetailsView),
 // @stacked-route
   ],
   dependencies: [

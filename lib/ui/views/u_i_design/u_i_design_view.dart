@@ -40,56 +40,61 @@ class UIDesignView extends StackedView<UIDesignViewModel> {
                   physics: ClampingScrollPhysics(),
                   itemCount: 4,
                   itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            margin:
-                                EdgeInsets.only(left: 5, right: 5, bottom: 15),
-                            height: 270,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8)),
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
+                    return InkWell(
+                      onTap: () {
+                        viewModel.navToProductDetail();
+                      },
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                  left: 5, right: 5, bottom: 15),
+                              height: 270,
                               width: 200,
-                              height: 200,
-                              child: Image.network(
-                                  "https://pngimg.com/uploads/glass/wineglass_PNG2866.png"),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8)),
                             ),
-                            Padding(
-                                padding: EdgeInsets.only(top: 10, left: 10),
-                                child: Text(
-                                  "Glass of wine",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                )),
-                            Padding(
-                                padding: EdgeInsets.only(top: 10, left: 10),
-                                child: Text(
-                                  "Price 10£",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                )),
-                            Padding(
-                                padding: EdgeInsets.only(top: 10, left: 10),
-                                child: Text(
-                                  "Ratting  ⭐⭐⭐✰✰",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                )),
-                          ],
-                        ),
-                      ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 200,
+                                height: 200,
+                                child: Image.network(
+                                    "https://pngimg.com/uploads/glass/wineglass_PNG2866.png"),
+                              ),
+                              const Padding(
+                                  padding: EdgeInsets.only(top: 10, left: 10),
+                                  child: Text(
+                                    "Glass of wine",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  )),
+                              const Padding(
+                                  padding: EdgeInsets.only(top: 10, left: 10),
+                                  child: Text(
+                                    "Price 10£",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  )),
+                              Padding(
+                                  padding: EdgeInsets.only(top: 10, left: 10),
+                                  child: Text(
+                                    "Ratting  ⭐⭐⭐✰✰",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
                     );
                   }))
         ]),
@@ -97,14 +102,6 @@ class UIDesignView extends StackedView<UIDesignViewModel> {
     );
   }
 
-// Container(
-//                       color: Colors.black,
-//                       margin: EdgeInsets.all(10),
-//                       width: 200,
-//                       height: 200,
-//                       child: Image.network(
-//                           "https://pngimg.com/uploads/glass/wineglass_PNG2866.png"),
-//                     );
   @override
   UIDesignViewModel viewModelBuilder(
     BuildContext context,

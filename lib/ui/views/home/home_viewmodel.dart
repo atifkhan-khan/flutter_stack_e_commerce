@@ -55,4 +55,8 @@ class HomeViewModel extends BaseViewModel {
   void navToUIScreen() {
     _naviServices.navigateToUIDesignView();
   }
+
+  void navToProductDetail() {
+    _naviServices.navigateToProductDetailsView();
+  }
 }

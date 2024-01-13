@@ -57,9 +57,7 @@ class HomeView extends StackedView<HomeViewModel> {
                             Padding(
                                 padding: EdgeInsets.only(right: 8),
                                 child: InkWell(
-                                    onTap: () {
-                                      viewModel.navToUIScreen();
-                                    },
+                                    onTap: () {},
                                     child: Icon(
                                       Icons.shopping_bag_outlined,
                                       color: Colors.amber,
@@ -71,7 +69,20 @@ class HomeView extends StackedView<HomeViewModel> {
                   ),
                 ],
               ),
-              ProductsListWidget()
+              verticalSpaceSmall,
+              Text(
+                "Categories",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              verticalSpaceSmall,
+              Categories(context, viewModel),
+              verticalSpaceSmall,
+              Text(
+                "Products",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              verticalSpaceSmall,
+              ProductsListWidget(viewModel)
             ],
           )),
         ),
@@ -123,8 +134,61 @@ Widget DrawerWidget() {
   );
 }
 
+Widget Categories(BuildContext context, HomeViewModel viewModel) {
+  return Container(
+    height: 150,
+    width: screenWidth(context),
+    child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        physics: ClampingScrollPhysics(),
+        itemCount: 3,
+        itemBuilder: (index, context) {
+          return InkWell(
+            onTap: () {
+              viewModel.navToUIScreen();
+            },
+            child: Card(
+                clipBehavior: Clip.antiAlias,
+
+                // margin: EdgeInsetsDirectional.all(8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        child: Stack(
+                      alignment: Alignment.topLeft,
+                      children: [
+                        SizedBox(
+                          height: 120,
+                          width: 170,
+                          child: Image.network(
+                              height: 120,
+                              width: 150,
+                              fit: BoxFit.cover,
+                              "https://img.freepik.com/premium-vector/glass-bottle-wine-icon_24640-19981.jpg?w=740"),
+                        ),
+                      ],
+                    )),
+                    verticalSpaceSmall,
+                    Container(
+                      child: Text(
+                        "Spanish Wine",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    verticalSpaceSmall,
+                  ],
+                )),
+          );
+        }),
+  );
+}
+
 // ignore: non_constant_identifier_names
-Widget ProductsListWidget() {
+Widget ProductsListWidget(HomeViewModel viewModel) {
   return Expanded(
     child: Container(
         child: IntrinsicGridView.vertical(
@@ -133,56 +197,61 @@ Widget ProductsListWidget() {
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
             //shrinkWrap: true,
             children: List.generate(112, (index) {
-              return Card(
-                  clipBehavior: Clip.antiAlias,
+              return InkWell(
+                onTap: () {
+                  viewModel.navToProductDetail();
+                },
+                child: Card(
+                    clipBehavior: Clip.antiAlias,
 
-                  // margin: EdgeInsetsDirectional.all(8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                          child: Stack(
-                        alignment: Alignment.topLeft,
-                        children: [
-                          SizedBox(
-                            height: 120,
-                            width: 170,
-                            child: Image.network(
-                                height: 120,
-                                width: 170,
-                                fit: BoxFit.fill,
-                                "https://hornblower-businesses.co.uk/wp-content/uploads/2020/02/electrical-equipment-manufacturer_1000X750.jpg"),
+                    // margin: EdgeInsetsDirectional.all(8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            child: Stack(
+                          alignment: Alignment.topLeft,
+                          children: [
+                            SizedBox(
+                              height: 120,
+                              width: 170,
+                              child: Image.network(
+                                  height: 120,
+                                  width: 170,
+                                  fit: BoxFit.fill,
+                                  "https://hornblower-businesses.co.uk/wp-content/uploads/2020/02/electrical-equipment-manufacturer_1000X750.jpg"),
+                            ),
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )),
+                          ],
+                        )),
+                        verticalSpaceTiny,
+                        const Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            "Product Name",
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                              )),
-                        ],
-                      )),
-                      verticalSpaceTiny,
-                      const Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Text(
-                          "Product Name",
-                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      verticalSpaceTiny,
-                      const Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Text(
-                          "Price 12£",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        verticalSpaceTiny,
+                        const Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            "Price 12£",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                      verticalSpaceSmall,
-                    ],
-                  ));
+                        verticalSpaceSmall,
+                      ],
+                    )),
+              );
             }))),
   );
 }

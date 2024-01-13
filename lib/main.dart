@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stack_e_comerce/app/app.bottomsheets.dart';
 import 'package:flutter_stack_e_comerce/app/app.dialogs.dart';
