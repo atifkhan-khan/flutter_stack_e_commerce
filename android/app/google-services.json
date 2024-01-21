@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "333363819202",
+    "firebase_url": "https://e-commarce-app-c621f-default-rtdb.firebaseio.com",
+    "project_id": "e-commarce-app-c621f",
+    "storage_bucket": "e-commarce-app-c621f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333363819202:android:4217a88001806b5655415b",
+        "android_client_info": {
+          "package_name": "com.example.flutter_stack_e_comerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333363819202-ja227jp4uhlu9203572f4vuvour1ao80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB390X1WPDYTmUzwBiQyYRLFqdui4H112g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333363819202-ja227jp4uhlu9203572f4vuvour1ao80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_stack_e_comerce/ui/common/app_colors.dart';
 import 'package:flutter_stack_e_comerce/ui/common/ui_helpers.dart';
-
+import 'package:intrinsic_grid_view/intrinsic_grid_view.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
@@ -15,63 +14,77 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      key: viewModel.key,
+      drawer: DrawerWidget(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              verticalSpaceMedium,
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        viewModel.key.currentState!.openDrawer();
+                      },
+                      icon: const Icon(
+                        Icons.menu,
+                      )),
+                  Container(
+                    width: screenWidth(context) / 1.5,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(22)),
+                    height: 35,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.only(left: 8),
+                            child: Icon(Icons.search)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.only(right: 8),
+                                child: Icon(
+                                  Icons.favorite_border_outlined,
+                                )),
+                            horizontalSpaceSmall,
+                            Padding(
+                                padding: EdgeInsets.only(right: 8),
+                                child: InkWell(
+                                    onTap: () {},
+                                    child: Icon(
+                                      Icons.shopping_bag_outlined,
+                                      color: Colors.amber,
+                                    )))
+                          ],
                         ),
-                      ),
+                      ],
                     ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
+                  ),
+                ],
+              ),
+              verticalSpaceSmall,
+              Text(
+                "Categories",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              verticalSpaceSmall,
+              Categories(context, viewModel),
+              verticalSpaceSmall,
+              Text(
+                "Products",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              verticalSpaceSmall,
+              ProductsListWidget(viewModel)
+            ],
+          )),
         ),
       ),
     );
@@ -82,4 +95,163 @@ class HomeView extends StackedView<HomeViewModel> {
     BuildContext context,
   ) =>
       HomeViewModel();
+}
+
+Widget DrawerWidget() {
+  return Drawer(
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: <Widget>[
+        const DrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.blue,
+          ),
+          child: Text(
+            'Drawer Header',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.message),
+          title: const Text('Messages'),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: const Icon(Icons.account_circle),
+          title: const Text('Profile'),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: const Icon(Icons.settings),
+          title: const Text('Settings'),
+          onTap: () {},
+        ),
+      ],
+    ),
+  );
+}
+
+Widget Categories(BuildContext context, HomeViewModel viewModel) {
+  return Container(
+    height: 150,
+    width: screenWidth(context),
+    child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        physics: ClampingScrollPhysics(),
+        itemCount: 3,
+        itemBuilder: (index, context) {
+          return InkWell(
+            onTap: () {
+              viewModel.navToUIScreen();
+            },
+            child: Card(
+                clipBehavior: Clip.antiAlias,
+
+                // margin: EdgeInsetsDirectional.all(8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                        child: Stack(
+                      alignment: Alignment.topLeft,
+                      children: [
+                        SizedBox(
+                          height: 120,
+                          width: 170,
+                          child: Image.network(
+                              height: 120,
+                              width: 150,
+                              fit: BoxFit.cover,
+                              "https://img.freepik.com/premium-vector/glass-bottle-wine-icon_24640-19981.jpg?w=740"),
+                        ),
+                      ],
+                    )),
+                    verticalSpaceSmall,
+                    Container(
+                      child: Text(
+                        "Spanish Wine",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    verticalSpaceSmall,
+                  ],
+                )),
+          );
+        }),
+  );
+}
+
+// ignore: non_constant_identifier_names
+Widget ProductsListWidget(HomeViewModel viewModel) {
+  return Expanded(
+    child: Container(
+        child: IntrinsicGridView.vertical(
+            verticalSpace: 10,
+            horizontalSpace: 10,
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            //shrinkWrap: true,
+            children: List.generate(112, (index) {
+              return InkWell(
+                onTap: () {
+                  viewModel.navToProductDetail();
+                },
+                child: Card(
+                    clipBehavior: Clip.antiAlias,
+
+                    // margin: EdgeInsetsDirectional.all(8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            child: Stack(
+                          alignment: Alignment.topLeft,
+                          children: [
+                            SizedBox(
+                              height: 120,
+                              width: 170,
+                              child: Image.network(
+                                  height: 120,
+                                  width: 170,
+                                  fit: BoxFit.fill,
+                                  "https://hornblower-businesses.co.uk/wp-content/uploads/2020/02/electrical-equipment-manufacturer_1000X750.jpg"),
+                            ),
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )),
+                          ],
+                        )),
+                        verticalSpaceTiny,
+                        const Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            "Product Name",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        verticalSpaceTiny,
+                        const Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            "Price 12£",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        verticalSpaceSmall,
+                      ],
+                    )),
+              );
+            }))),
+  );
 }
